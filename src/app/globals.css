@@ -1,0 +1,575 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ==========================================================================
+   POLIKLINIKA GHETALDUS — DESIGN SYSTEM
+   --------------------------------------------------------------------------
+   Concept: "Duboko plavo" — the deep blue of a dilated pupil under the slit
+   lamp, and of surgical drapes. Deep royal blue carries the whole identity:
+   authoritative, unmistakably medical, but rich rather than corporate-cool.
+
+   Warmth comes from paper, not from a gold accent — bone-white grounds and a
+   near-mute sand used only in texture and ornament. Ornament is organic
+   (corneal topography contours, iris rings), never a ruled grid.
+   ========================================================================== */
+
+@custom-variant dark (&:is(.dark *));
+
+/* --------------------------------------------------------------------------
+   1. BRAND PALETTE (fixed values — never overridden)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Royal — the single brand voice. Deep royal at the dark end, true cobalt
+     in the interactive midtones. Dark sections use 950, not a neutral navy,
+     so inverted areas read rich rather than fintech-grey. */
+  --royal-50: #eef4ff;
+  --royal-100: #dbe6ff;
+  --royal-200: #bad0ff;
+  --royal-300: #8db1ff;
+  --royal-400: #5c8bf7;
+  --royal-500: #3468e8;
+  --royal-600: #1a4fcf;
+  --royal-700: #123ea8;
+  --royal-800: #0f3285;
+  --royal-900: #112a66;
+  --royal-950: #0a1b40;
+
+  /* Ink — cool neutral ramp for text and quiet UI. Low chroma so royal
+     always reads as the loudest thing on the page. */
+  --ink-50: #f5f7fa;
+  --ink-100: #e7ebf2;
+  --ink-200: #cdd5e1;
+  --ink-300: #a6b1c4;
+  --ink-400: #74839b;
+  --ink-500: #4f5e76;
+  --ink-600: #3b475b;
+  --ink-700: #2c3645;
+  --ink-800: #1f2734;
+  --ink-900: #151c26;
+  --ink-950: #0d1219;
+
+  /* Bone — warm paper neutrals. Replaces stark white everywhere. */
+  --bone-50: #fcfaf6;
+  --bone-100: #f6f2ea;
+  --bone-200: #eee8dc;
+  --bone-300: #e0d8c8;
+  --bone-400: #c6bba6;
+  --bone-500: #a3977f;
+
+  /* Sand — deliberately near-mute. This is *not* an accent colour: it exists
+     only to keep the page from going cold (grain, ornament, quote marks).
+     If it ever competes with royal for attention, it is being misused. */
+  --sand-100: #f2ebdd;
+  --sand-200: #e5d9c2;
+  --sand-300: #d3c3a4;
+  --sand-400: #bda886;
+  --sand-500: #9d8a6c;
+
+  /* Functional only — never decorative. */
+  --signal-success: #2f6f4f;
+  --signal-warning: #8a5d14;
+  --signal-danger: #a13c30;
+
+  /* Paper grain. Organic tooth, the opposite of a ruled grid. */
+  --grain-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------------------------
+   2. SEMANTIC TOKENS (scoped — see .on-ink / .on-royal below)
+   -------------------------------------------------------------------------- */
+:root {
+  --background: var(--bone-50);
+  --foreground: var(--ink-950);
+
+  --surface: #ffffff;
+  --surface-sunken: var(--bone-100);
+  --surface-raised: #ffffff;
+
+  --muted: var(--bone-100);
+  --muted-foreground: var(--ink-500);
+  --subtle-foreground: #5f6e87;
+
+  --border: var(--bone-300);
+  --hairline: color-mix(in oklab, var(--ink-950) 10%, transparent);
+  --hairline-strong: color-mix(in oklab, var(--ink-950) 18%, transparent);
+
+  --primary: var(--royal-700);
+  --primary-hover: var(--royal-600);
+  --primary-foreground: var(--bone-50);
+
+  /* Accent and primary are the same family by design. The system is close to
+     monochrome; emphasis comes from weight, scale and space — not from a
+     second hue shouting. */
+  --accent: var(--royal-600);
+  --accent-hover: var(--royal-700);
+  --accent-foreground: #ffffff;
+  --accent-quiet: var(--royal-50);
+
+  --ring: var(--royal-500);
+
+  --grain-blend: multiply;
+  --grain-opacity: 0.055;
+
+  /* shadcn/ui compatibility aliases — keeps generated components on-brand */
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+  --secondary: var(--surface-sunken);
+  --secondary-foreground: var(--foreground);
+  --destructive: var(--signal-danger);
+  --destructive-foreground: var(--bone-50);
+  --input: var(--border);
+}
+
+/*  Inverted scopes. Drop `.on-ink` on any section and every child — including
+    shadcn components — re-reads these tokens. One class, whole-section flip. */
+.on-ink {
+  --background: var(--royal-950);
+  --foreground: var(--bone-50);
+
+  --surface: color-mix(in oklab, var(--royal-900) 80%, var(--royal-950));
+  --surface-sunken: #071231;
+  --surface-raised: var(--royal-900);
+
+  --muted: var(--royal-900);
+  --muted-foreground: #a8bbe0;
+  --subtle-foreground: #8497bd;
+
+  --border: color-mix(in oklab, var(--bone-50) 18%, transparent);
+  --hairline: color-mix(in oklab, var(--bone-50) 13%, transparent);
+  --hairline-strong: color-mix(in oklab, var(--bone-50) 24%, transparent);
+
+  --primary: var(--bone-50);
+  --primary-hover: #ffffff;
+  --primary-foreground: var(--royal-900);
+
+  --accent: var(--royal-300);
+  --accent-hover: var(--royal-200);
+  --accent-foreground: var(--royal-950);
+  --accent-quiet: color-mix(in oklab, var(--royal-300) 15%, transparent);
+
+  --ring: var(--royal-300);
+
+  --grain-blend: overlay;
+  --grain-opacity: 0.09;
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --secondary: var(--surface-raised);
+  --secondary-foreground: var(--foreground);
+  --input: var(--border);
+}
+
+.on-royal {
+  --background: var(--royal-800);
+  --foreground: #ffffff;
+
+  --surface: var(--royal-700);
+  --surface-sunken: var(--royal-900);
+  --surface-raised: var(--royal-700);
+
+  --muted: var(--royal-700);
+  --muted-foreground: #c3d4f5;
+  --subtle-foreground: #a3b8e2;
+
+  --border: color-mix(in oklab, var(--bone-50) 22%, transparent);
+  --hairline: color-mix(in oklab, var(--bone-50) 15%, transparent);
+  --hairline-strong: color-mix(in oklab, var(--bone-50) 28%, transparent);
+
+  --primary: var(--bone-50);
+  --primary-hover: #ffffff;
+  --primary-foreground: var(--royal-800);
+
+  --accent: var(--royal-200);
+  --accent-hover: var(--royal-100);
+  --accent-foreground: var(--royal-950);
+  --accent-quiet: color-mix(in oklab, var(--royal-200) 18%, transparent);
+
+  --ring: var(--royal-200);
+
+  --grain-blend: overlay;
+  --grain-opacity: 0.08;
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --secondary: var(--surface-raised);
+  --secondary-foreground: var(--foreground);
+  --input: var(--border);
+}
+
+/* --------------------------------------------------------------------------
+   3. TAILWIND THEME MAPPING
+   `inline` is required on semantic colors so .on-ink overrides cascade.
+   -------------------------------------------------------------------------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-raised: var(--surface-raised);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+
+  --color-border: var(--border);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-quiet: var(--accent-quiet);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  /* Brand scales as utilities: bg-royal-800, text-ink-500, … */
+  --color-royal-50: #eef4ff;
+  --color-royal-100: #dbe6ff;
+  --color-royal-200: #bad0ff;
+  --color-royal-300: #8db1ff;
+  --color-royal-400: #5c8bf7;
+  --color-royal-500: #3468e8;
+  --color-royal-600: #1a4fcf;
+  --color-royal-700: #123ea8;
+  --color-royal-800: #0f3285;
+  --color-royal-900: #112a66;
+  --color-royal-950: #0a1b40;
+
+  --color-ink-50: #f5f7fa;
+  --color-ink-100: #e7ebf2;
+  --color-ink-200: #cdd5e1;
+  --color-ink-300: #a6b1c4;
+  --color-ink-400: #74839b;
+  --color-ink-500: #4f5e76;
+  --color-ink-600: #3b475b;
+  --color-ink-700: #2c3645;
+  --color-ink-800: #1f2734;
+  --color-ink-900: #151c26;
+  --color-ink-950: #0d1219;
+
+  --color-bone-50: #fcfaf6;
+  --color-bone-100: #f6f2ea;
+  --color-bone-200: #eee8dc;
+  --color-bone-300: #e0d8c8;
+  --color-bone-400: #c6bba6;
+  --color-bone-500: #a3977f;
+
+  --color-sand-100: #f2ebdd;
+  --color-sand-200: #e5d9c2;
+  --color-sand-300: #d3c3a4;
+  --color-sand-400: #bda886;
+  --color-sand-500: #9d8a6c;
+
+  /* Fluid type scale. Display sizes are intentionally large and tight —
+     the site speaks in confident, editorial statements. */
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.16em;
+  --text-eyebrow--font-weight: 600;
+
+  --text-display: clamp(2.75rem, 7vw, 5.75rem);
+  --text-display--line-height: 0.94;
+  --text-display--letter-spacing: -0.03em;
+
+  --text-title: clamp(2.125rem, 4.4vw, 3.5rem);
+  --text-title--line-height: 1.02;
+  --text-title--letter-spacing: -0.025em;
+
+  --text-heading: clamp(1.5rem, 2.4vw, 2.125rem);
+  --text-heading--line-height: 1.12;
+  --text-heading--letter-spacing: -0.02em;
+
+  --text-subheading: clamp(1.1875rem, 1.6vw, 1.5rem);
+  --text-subheading--line-height: 1.25;
+  --text-subheading--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  --text-lead--line-height: 1.6;
+  --text-lead--letter-spacing: -0.005em;
+
+  /* Tight radii — the geometry is architectural, not bubbly. The single
+     expressive shape is the .arch (see utilities). */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 1rem;
+
+  /* Cool-tinted elevation, keyed to ink rather than pure black. */
+  --shadow-hairline: 0 1px 0 0 color-mix(in oklab, #0d1219 8%, transparent);
+  --shadow-lift: 0 1px 2px -1px color-mix(in oklab, #0d1219 10%, transparent),
+    0 8px 24px -12px color-mix(in oklab, #0d1219 22%, transparent);
+  --shadow-float: 0 2px 4px -2px color-mix(in oklab, #0d1219 12%, transparent),
+    0 18px 48px -20px color-mix(in oklab, #0d1219 28%, transparent);
+  --shadow-accent: 0 10px 28px -14px color-mix(in oklab, #123ea8 55%, transparent);
+
+  /* Motion. `optical` is the house curve: fast out, long soft settle —
+     it reads like an autorefractor snapping into focus. */
+  --ease-optical: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --animate-focus-in: focus-in 0.9s var(--ease-optical) both;
+  --animate-drift: drift 26s var(--ease-inout) infinite;
+  --animate-accordion-down: accordion-down 0.36s var(--ease-optical);
+  --animate-accordion-up: accordion-up 0.3s var(--ease-optical);
+}
+
+/* Radix reports the measured panel height on this custom property. */
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes focus-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(1rem) scale(1.015);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Slow organic drift for topography ornament — barely perceptible. */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(1.5%, -1.5%, 0) rotate(1.2deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. BASE
+   -------------------------------------------------------------------------- */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headings default to the display serif — set once, not per component. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-variation-settings: "SOFT" 20, "WONK" 0;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Bosnian copy is diacritic-heavy (č ć ž š đ) — never clip ascenders. */
+  :is(h1, h2, h3, h4, h5, h6, p, li) {
+    overflow-wrap: break-word;
+  }
+
+  ::selection {
+    background-color: var(--royal-200);
+    color: var(--royal-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. SIGNATURE UTILITIES
+   -------------------------------------------------------------------------- */
+@layer utilities {
+  /* The house shape: a lens/apse arch. Used on portraits and key panels. */
+  .arch {
+    border-start-start-radius: 999rem;
+    border-start-end-radius: 999rem;
+  }
+
+  .arch-soft {
+    border-start-start-radius: 8rem;
+    border-start-end-radius: 8rem;
+  }
+
+  /* Paper tooth. Replaces the ruled grid as the background texture — it reads
+     as printed clinic stationery instead of a dev-tools blueprint. */
+  .paper-grain {
+    position: relative;
+  }
+
+  .paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--grain-url);
+    background-size: 180px 180px;
+    mix-blend-mode: var(--grain-blend);
+    opacity: var(--grain-opacity);
+    pointer-events: none;
+  }
+
+  /* Iris/lens radial wash — a soft focal glow behind hero content. */
+  .lens-wash {
+    background-image: radial-gradient(
+      ellipse 70% 55% at 50% 40%,
+      color-mix(in oklab, var(--royal-500) 26%, transparent) 0%,
+      transparent 70%
+    );
+  }
+
+  .lens-wash-soft {
+    background-image: radial-gradient(
+      ellipse 60% 50% at 72% 28%,
+      color-mix(in oklab, var(--royal-400) 16%, transparent) 0%,
+      transparent 68%
+    );
+  }
+
+  /* Hairline rules that respect the current scope's inversion. */
+  .rule-t {
+    border-top: 1px solid var(--hairline);
+  }
+  .rule-b {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  /* Page shell — one source of truth for horizontal rhythm. */
+  .shell {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 82.5rem;
+    padding-inline: 1.25rem;
+  }
+
+  @media (width >= 40rem) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .shell {
+      padding-inline: 3rem;
+    }
+  }
+
+  /* Vertical section rhythm. */
+  .section-y {
+    padding-block: clamp(4rem, 9vw, 8.5rem);
+  }
+
+  .section-y-tight {
+    padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  }
+
+  /* Optical alignment helper for the display serif at huge sizes. */
+  .optical-left {
+    margin-inline-start: -0.055em;
+  }
+
+  .wonk {
+    font-variation-settings: "SOFT" 40, "WONK" 1;
+  }
+
+  .numeric {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* Nav underline that draws out from the centre on hover / current page. */
+  .rule-draw {
+    position: relative;
+  }
+
+  .rule-draw::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -0.375rem;
+    height: 2px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s var(--ease-optical);
+  }
+
+  .rule-draw:hover::after,
+  .rule-draw[data-current="true"]::after {
+    transform: scaleX(1);
+  }
+}
