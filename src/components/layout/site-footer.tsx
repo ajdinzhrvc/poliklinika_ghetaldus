@@ -163,7 +163,7 @@ export function SiteFooter() {
           </p>
           <p className="flex items-center gap-2">
             <IrisMark className="size-2.5 text-accent" />
-            Sva prava zadržana
+            <a href="https://netcore.ba">Websajt: netcore.ba</a>
           </p>
         </div>
       </div>
