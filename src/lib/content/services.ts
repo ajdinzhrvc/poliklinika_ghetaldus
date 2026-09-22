@@ -1,12 +1,13 @@
-import { placeholder } from "@/lib/placeholders";
+import { photos } from "@/lib/photos";
+import { stockPhotos } from "@/lib/stock-photos";
 
 /**
  * The three service pillars. This list is the authoritative catalogue for the
  * whole site — the home grid, the footer and the /usluge pages all read from it.
  *
  * Scope is strictly ophthalmology, ophthalmic surgery and optics. The clinic no
- * longer performs general medical examinations, occupational medicine, lab work
- * or any other specialty; nothing of that kind belongs in this file.
+ * longer performs general medical examinations, occupational medicine, lab work,
+ * hearing aids or any other specialty; nothing of that kind belongs in this file.
  */
 
 export type ServicePillar = {
@@ -16,7 +17,8 @@ export type ServicePillar = {
   summary: string;
   items: readonly { label: string; detail: string }[];
   href: string;
-  image: { src: string; alt: string };
+  /** `blur` is only present on the clinic's own photos — stock stand-ins render without a blur-up. */
+  image: { src: string; alt: string; blur?: string };
 };
 
 export const servicePillars: readonly ServicePillar[] = [
@@ -53,7 +55,8 @@ export const servicePillars: readonly ServicePillar[] = [
       },
     ],
     href: "/usluge#dijagnostika",
-    image: placeholder.eyeMacro,
+    // Stock — no real photo of the diagnostic equipment (OCT, vidno polje) yet.
+    image: stockPhotos.diagnostics,
   },
   {
     id: "hirurgija",
@@ -90,19 +93,20 @@ export const servicePillars: readonly ServicePillar[] = [
       },
     ],
     href: "/operacija-katarakte",
-    image: placeholder.surgery,
+    // Stock — no real photo of the operating theatre yet.
+    image: stockPhotos.surgery,
   },
   {
     id: "optika",
     number: "03",
-    title: "Očna optika i slušni aparati",
+    title: "Očna optika",
     summary:
       "Salon optike u istoj zgradi — dioptrija utvrđena kod specijaliste postaje naočale bez dodatnog odlaska.",
     items: [
       {
         label: "Dioptrijski i sunčani okviri",
         detail:
-          "Veliki izbor okvira renomiranih brendova za sve uzraste.",
+          "Veliki izbor okvira renomiranih brendova za sve uzraste, uključujući dječije okvire.",
       },
       {
         label: "Vrhunska stakla sa zaštitnim slojevima",
@@ -110,17 +114,18 @@ export const servicePillars: readonly ServicePillar[] = [
           "Antirefleksni, tvrdi i UV zaštitni slojevi, jednofokalna i progresivna stakla.",
       },
       {
-        label: "Widex slušni aparati",
+        label: "Izrada i prilagođavanje naočala",
         detail:
-          "Distribucija, prilagođavanje i servis digitalnih Widex slušnih aparata.",
+          "Naočale se izrađuju po nalazu specijaliste i podešavaju na licu, uz doradu bez naknade.",
       },
       {
-        label: "Servox govorni aparati",
-        detail: "Distribucija i održavanje Servox govornih aparata.",
+        label: "Kontaktna sočiva",
+        detail:
+          "Odabir sočiva prema nalazu i edukacija pacijenta za samostalno nošenje.",
       },
     ],
     href: "/optika",
-    image: placeholder.eyewear,
+    image: photos.salonArkade,
   },
 ] as const;
 

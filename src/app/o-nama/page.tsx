@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/layout/page-hero";
 import { Eyebrow, IrisMark, LensRings } from "@/components/brand/ornaments";
 import { FocusReveal, Stagger, StaggerItem } from "@/components/motion/focus-reveal";
-import { placeholder } from "@/lib/placeholders";
+import { VisitingSpecialists } from "@/components/sections/visiting-specialists";
+import { photos } from "@/lib/photos";
 import { brandPillars, primaryCta, site } from "@/lib/site";
 import { clinicFacts } from "@/lib/content/services";
 
@@ -129,9 +130,11 @@ export default function AboutPage() {
           <FocusReveal delay={0.1}>
             <div className="arch relative aspect-[3/4] overflow-hidden bg-surface-sunken shadow-lift">
               <Image
-                src={placeholder.diagnostics.src}
-                alt={placeholder.diagnostics.alt}
+                src={photos.salonPanorama.src}
+                alt={photos.salonPanorama.alt}
                 fill
+                placeholder="blur"
+                blurDataURL={photos.salonPanorama.blur}
                 sizes="(min-width: 1024px) 38vw, 100vw"
                 className="object-cover"
               />
@@ -230,6 +233,8 @@ export default function AboutPage() {
           </FocusReveal>
         </div>
       </section>
+
+      <VisitingSpecialists />
     </main>
   );
 }

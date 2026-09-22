@@ -9,6 +9,13 @@ export const site = {
   shortName: "Ghetaldus",
   legalName: "Zdravstvena Ustanova Poliklinika Ghetaldus Brčko Distrikt",
   city: "Brčko",
+  /**
+   * Declined forms. "Brčko" does not take a plain suffix — the genitive is
+   * "Brčkog" and the locative "Brčkom", so `${city}u` would print "Brčkou".
+   * Interpolate these instead of gluing a letter onto `city`.
+   */
+  cityGenitive: "Brčkog",
+  cityLocative: "Brčkom",
   url: "https://poliklinikaghetaldus.com",
   locale: "bs_BA",
   lang: "bs",
@@ -63,7 +70,7 @@ export const openingHours = [
   {
     label: "Ponedjeljak – Subota",
     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    opens: "08:00",
+    opens: "09:00",
     closes: "18:00",
   },
   {
@@ -105,8 +112,17 @@ export const footerServices = [
   { label: "Anti-VEGF terapija", href: "/usluge#hirurgija" },
   { label: "Hirurgija očnih kapaka", href: "/usluge#hirurgija" },
   { label: "Očna optika", href: "/optika" },
-  { label: "Widex slušni aparati", href: "/optika#widex" },
+  { label: "Kontaktna sočiva", href: "/usluge#dijagnostika" },
 ] as const;
+
+/**
+ * Visiting specialists who hold clinics here alongside the permanent team.
+ * The schedule rotates, so the site deliberately never prints dates — the
+ * phone number is the only answer that cannot go stale.
+ */
+export const visitingSpecialists = {
+  cities: ["Novog Sada", "Tuzle"],
+} as const;
 
 /** The three promises the clinic is built on — used in the trust strip. */
 export const brandPillars = [

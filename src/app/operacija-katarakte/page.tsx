@@ -13,7 +13,7 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Eyebrow, IrisMark, LensDivider } from "@/components/brand/ornaments";
 import { FocusReveal, Stagger, StaggerItem } from "@/components/motion/focus-reveal";
 import { JsonLd } from "@/components/seo/json-ld";
-import { placeholder } from "@/lib/placeholders";
+import { photos } from "@/lib/photos";
 import { faqItems } from "@/lib/content/faq";
 import { contact, primaryCta, site } from "@/lib/site";
 
@@ -199,9 +199,11 @@ export default function CataractPage() {
           <FocusReveal>
             <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-surface-sunken shadow-float">
               <Image
-                src={placeholder.surgery.src}
-                alt={placeholder.surgery.alt}
+                src={photos.eksterijer.src}
+                alt={photos.eksterijer.alt}
                 fill
+                placeholder="blur"
+                blurDataURL={photos.eksterijer.blur}
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
               />

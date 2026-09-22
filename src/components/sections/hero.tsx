@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Eyebrow, IrisMark, Topography } from "@/components/brand/ornaments";
-import { placeholder } from "@/lib/placeholders";
+import { photos } from "@/lib/photos";
 import { patientOrigins, reviews } from "@/lib/content/reviews";
 import { primaryCta, site } from "@/lib/site";
 
@@ -11,8 +11,9 @@ const featured = reviews.find((r) => r.featured) ?? reviews[0];
 
 /**
  * Asymmetric editorial hero on the deep royal scope — a dark opening reads as a
- * specialist centre rather than a general practice, and it lets the arch
- * portrait carry the warmth.
+ * specialist centre rather than a general practice, and it lets the arch carry
+ * the one image most patients already recognise: the shopfront on Bosne
+ * Srebrene, sign and all.
  *
  * The headline states the strategic pivot as a virtue: this clinic treats eyes
  * and nothing else, and has done so for over half a century.
@@ -82,14 +83,16 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Arch portrait — the signature shape, used once per page at scale. */}
+        {/* Arch — the signature shape, used once per page at scale. */}
         <div className="relative">
           <div className="arch relative mx-auto aspect-[4/5] w-full max-w-lg overflow-hidden bg-surface-sunken shadow-float">
             <Image
-              src={placeholder.eyeMacro.src}
-              alt={placeholder.eyeMacro.alt}
+              src={photos.eksterijer.src}
+              alt={photos.eksterijer.alt}
               fill
               priority
+              placeholder="blur"
+              blurDataURL={photos.eksterijer.blur}
               sizes="(min-width: 1024px) 45vw, (min-width: 640px) 70vw, 100vw"
               className="object-cover"
             />

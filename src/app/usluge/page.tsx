@@ -103,6 +103,9 @@ export default function ServicesPage() {
                     src={pillar.image.src}
                     alt={pillar.image.alt}
                     fill
+                    {...(pillar.image.blur
+                      ? { placeholder: "blur" as const, blurDataURL: pillar.image.blur }
+                      : {})}
                     sizes="(min-width: 1024px) 28vw, 100vw"
                     className="object-cover"
                   />

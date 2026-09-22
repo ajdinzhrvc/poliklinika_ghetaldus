@@ -5,7 +5,7 @@ import { Clock, Home, Syringe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Eyebrow, IrisMark, Topography } from "@/components/brand/ornaments";
 import { FocusReveal } from "@/components/motion/focus-reveal";
-import { placeholder } from "@/lib/placeholders";
+import { stockPhotos } from "@/lib/stock-photos";
 
 const quickFacts = [
   { icon: Syringe, label: "Lokalna anestezija", detail: "Bez opšte anestezije" },
@@ -102,8 +102,8 @@ export function Cataract() {
         <FocusReveal delay={0.1}>
           <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-surface-sunken shadow-float">
             <Image
-              src={placeholder.surgery.src}
-              alt={placeholder.surgery.alt}
+              src={stockPhotos.surgery.src}
+              alt={stockPhotos.surgery.alt}
               fill
               sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover"

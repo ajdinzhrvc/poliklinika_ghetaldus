@@ -18,7 +18,7 @@ export function medicalClinicSchema() {
     "@id": `${site.url}/#klinika`,
     name: `${site.name} ${site.city}`,
     legalName: site.legalName,
-    description: `Specijalizovani centar za oftalmologiju, očnu hirurgiju i optiku u ${site.city}u. Tradicija od ${site.founded}. godine.`,
+    description: `Specijalizovani centar za oftalmologiju, očnu hirurgiju i optiku u ${site.cityLocative}. Tradicija od ${site.founded}. godine.`,
     url: site.url,
     telephone: contact.phoneInternational,
     email: contact.email,

@@ -2,12 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    // Placeholder sources only — remove once the client's own photography and
-    // the local /public pipeline replace them.
-    remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "plus.unsplash.com" },
-    ],
+    // Most imagery is the clinic's own, served from /public/slike (see
+    // scripts/optimize-photos.mjs). This host carries the small number of
+    // stock stand-ins in src/lib/stock-photos.ts for sections with no
+    // matching real photo yet (diagnostics, surgery) — remove once those
+    // arrive.
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
     formats: ["image/avif", "image/webp"],
   },
   poweredByHeader: false,

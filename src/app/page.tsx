@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/hero";
 import { FactsStrip } from "@/components/sections/facts-strip";
 import { Services } from "@/components/sections/services";
 import { About } from "@/components/sections/about";
+import { VisitingSpecialists } from "@/components/sections/visiting-specialists";
 import { Cataract } from "@/components/sections/cataract";
 import { Reviews } from "@/components/sections/reviews";
 import { Faq } from "@/components/sections/faq";
@@ -31,6 +32,7 @@ export default function Home() {
       <FactsStrip />
       <Services />
       <About />
+      <VisitingSpecialists />
       <Cataract />
       <Reviews />
       <Faq />

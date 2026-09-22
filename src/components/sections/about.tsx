@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 import { Eyebrow, LensRings } from "@/components/brand/ornaments";
 import { FocusReveal } from "@/components/motion/focus-reveal";
-import { placeholder } from "@/lib/placeholders";
+import { photos } from "@/lib/photos";
 import { brandPillars, site } from "@/lib/site";
 
 /**
@@ -30,9 +30,11 @@ export function About() {
         <FocusReveal>
           <div className="arch relative aspect-[3/4] overflow-hidden bg-background shadow-lift">
             <Image
-              src={placeholder.diagnostics.src}
-              alt={placeholder.diagnostics.alt}
+              src={photos.recepcija.src}
+              alt={photos.recepcija.alt}
               fill
+              placeholder="blur"
+              blurDataURL={photos.recepcija.blur}
               sizes="(min-width: 1024px) 38vw, 100vw"
               className="object-cover"
             />

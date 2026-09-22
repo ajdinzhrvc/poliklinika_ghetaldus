@@ -11,12 +11,13 @@ import {
   contact,
   maps,
   openingHours,
+  site,
 } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Kontakt i zakazivanje",
   description:
-    "Zakažite oftalmološki pregled u Poliklinici Ghetaldus Brčko — Bosne Srebrene 6, telefon +387 49 216-242. Radno vrijeme ponedjeljak–subota 08:00–18:00.",
+    "Zakažite oftalmološki pregled u Poliklinici Ghetaldus Brčko — Bosne Srebrene 6, telefon +387 49 216-242. Radno vrijeme ponedjeljak–subota 09:00–18:00.",
   alternates: { canonical: "/kontakt" },
 };
 
@@ -146,7 +147,7 @@ export default function ContactPage() {
                   Dolazak i parking
                 </h3>
                 <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-muted-foreground">
-                  Nalazimo se u ulici {contact.street}, u mirnom dijelu {contact.city}a,
+                  Nalazimo se u ulici {contact.street}, u mirnom dijelu {site.cityGenitive},
                   sa parkingom u neposrednoj blizini zgrade. Ako dolazite sa
                   slabovidnom ili starijom osobom, dovezite je do samog ulaza —
                   javite nam pri zakazivanju pa ćemo izaći u susret.

@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/layout/page-hero";
 import { Eyebrow, IrisMark, LensDivider } from "@/components/brand/ornaments";
 import { FocusReveal, Stagger, StaggerItem } from "@/components/motion/focus-reveal";
-import { placeholder } from "@/lib/placeholders";
+import { photos } from "@/lib/photos";
 import { contact, primaryCta } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Očna optika i slušni aparati",
+  title: "Očna optika",
   description:
-    "Salon očne optike u Brčkom — dioptrijski i sunčani okviri, stakla sa antirefleksnim i UV zaštitnim slojevima, progresivna stakla. Distribucija i servis Widex slušnih aparata i Servox govornih aparata.",
+    "Salon očne optike u Brčkom — dioptrijski i sunčani okviri renomiranih brendova, stakla sa antirefleksnim i UV zaštitnim slojevima, jednofokalna i progresivna stakla. Dioptriju određuje oftalmolog.",
   alternates: { canonical: "/optika" },
 };
 
@@ -53,11 +53,16 @@ const opticsSteps = [
   },
 ] as const;
 
-const widexServices = [
-  "Odabir i prilagođavanje digitalnih Widex slušnih aparata",
-  "Programiranje aparata prema nalazu sluha",
-  "Redovan servis, čišćenje i zamjena potrošnih dijelova",
-  "Distribucija i održavanje Servox govornih aparata",
+/**
+ * The salon shot large, then three closer frames. Ordered widest-to-tightest so
+ * the reader gets the room before the merchandise — the point being that the
+ * selection is real and in stock, not a catalogue to order from.
+ */
+const gallery = [
+  photos.salonUgao,
+  photos.okviriVitrina,
+  photos.okviriBoje,
+  photos.okviriDetalj,
 ] as const;
 
 export default function OpticsPage() {
@@ -78,7 +83,7 @@ export default function OpticsPage() {
             <Link href={primaryCta.href}>Zakaži pregled vida</Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href="#widex">Widex slušni aparati</Link>
+            <Link href="#salon">Pogledajte salon</Link>
           </Button>
         </div>
       </PageHero>
@@ -89,9 +94,12 @@ export default function OpticsPage() {
           <FocusReveal>
             <div className="arch relative aspect-[3/4] overflow-hidden bg-surface-sunken shadow-lift">
               <Image
-                src={placeholder.eyewear.src}
-                alt={placeholder.eyewear.alt}
+                src={photos.okviriZid.src}
+                alt={photos.okviriZid.alt}
                 fill
+                priority
+                placeholder="blur"
+                blurDataURL={photos.okviriZid.blur}
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
               />
@@ -163,27 +171,64 @@ export default function OpticsPage() {
         </div>
       </section>
 
-      {/* Widex */}
+      {/* Salon gallery */}
       <section
-        id="widex"
+        id="salon"
         className="on-ink paper-grain relative isolate overflow-hidden bg-background text-foreground section-y"
       >
-        <div className="shell relative grid items-start gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+        <div className="shell relative">
           <FocusReveal>
-            <Eyebrow>Widex i Servox</Eyebrow>
-            <h2 className="mt-4 text-title">Slušni i govorni aparati</h2>
-            <p className="mt-6 text-lead text-muted-foreground">
-              Uz očnu optiku, ovlašteni smo distributer i serviser digitalnih
-              Widex slušnih aparata te Servox govornih aparata. Aparat se ne
-              prodaje „iz kutije“ — programira se i prilagođava, a zatim redovno
-              servisira.
-            </p>
-            <p className="mt-5 text-[0.9375rem] leading-relaxed text-muted-foreground">
-              Za mnoge naše pacijente to znači jedno mjesto za dvije stvari koje
-              najviše utiču na svakodnevnu samostalnost: vid i sluh.
-            </p>
+            <div className="max-w-2xl">
+              <Eyebrow>Naš salon</Eyebrow>
+              <h2 className="mt-4 text-title">
+                Okvire birate{" "}
+                <em className="wonk not-italic text-accent">uživo</em>
+              </h2>
+              <p className="mt-6 text-lead text-muted-foreground">
+                Sve što vidite na ovim fotografijama je u salonu, na
+                Bosne Srebrene 6. Okvir se proba na licu, uz ogledalo i uz
+                mišljenje optičara — ne bira se sa slike u katalogu.
+              </p>
+            </div>
+          </FocusReveal>
 
-            <div className="mt-9 flex flex-wrap gap-3">
+          {/* First photo takes the full width of the grid on desktop; the three
+              tighter shots sit under it as a row of thirds. */}
+          <Stagger className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {gallery.map((photo, index) => (
+              <StaggerItem
+                key={photo.src}
+                className={index === 0 ? "sm:col-span-2 lg:col-span-3" : ""}
+              >
+                <div
+                  className={`relative overflow-hidden rounded-sm bg-surface-sunken ${
+                    index === 0 ? "aspect-[16/9]" : "aspect-[4/3]"
+                  }`}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    placeholder="blur"
+                    blurDataURL={photo.blur}
+                    sizes={
+                      index === 0
+                        ? "(min-width: 1280px) 1152px, 100vw"
+                        : "(min-width: 1024px) 32vw, (min-width: 640px) 48vw, 100vw"
+                    }
+                    className="object-cover transition-transform duration-700 ease-[var(--ease-optical)] hover:scale-[1.03]"
+                  />
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          <FocusReveal delay={0.1}>
+            <div className="mt-12 flex flex-wrap items-center gap-3 rule-t pt-9">
+              <p className="mr-auto max-w-md text-[0.9375rem] leading-relaxed text-muted-foreground">
+                Tražite određeni brend ili okvir za dijete? Pozovite prije
+                dolaska i provjerićemo šta imamo na stanju.
+              </p>
               <Button size="lg" variant="primary" asChild>
                 <a href={`tel:${contact.phoneHref}`}>
                   Pozovite <span className="numeric">{contact.phoneDisplay}</span>
@@ -192,24 +237,6 @@ export default function OpticsPage() {
               <Button size="lg" variant="outline" asChild>
                 <Link href="/kontakt#termin">Pošaljite upit</Link>
               </Button>
-            </div>
-          </FocusReveal>
-
-          <FocusReveal delay={0.1}>
-            <div className="rounded-sm border border-hairline bg-surface p-7">
-              <h3 className="font-sans text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-subtle-foreground">
-                Šta obuhvata usluga
-              </h3>
-              <ul className="mt-5 space-y-3.5">
-                {widexServices.map((item) => (
-                  <li key={item} className="flex gap-2.5">
-                    <IrisMark className="mt-1 size-3 shrink-0 text-accent" />
-                    <span className="text-[0.9375rem] leading-relaxed">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </div>
           </FocusReveal>
         </div>

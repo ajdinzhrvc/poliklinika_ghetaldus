@@ -1,4 +1,6 @@
-import { contact, openingHours } from "@/lib/site";
+import { contact, openingHours, site, visitingSpecialists } from "@/lib/site";
+
+const visitingCities = `${visitingSpecialists.cities.slice(0, -1).join(", ")} i ${visitingSpecialists.cities.at(-1)}`;
 
 /**
  * Home-page FAQ. Answers are written to remove the actual friction a patient
@@ -28,6 +30,10 @@ export const faqItems: readonly FaqItem[] = [
     answer: `Jeste. Radimo isključivo po zakazanim terminima kako niko ne bi čekao. Pozovite nas na ${contact.phoneInternational} ili pošaljite zahtjev putem obrasca — javljamo se istog radnog dana i predlažemo prvi slobodan termin. Radno vrijeme: ${openingHours[0].label} od ${openingHours[0].opens} do ${openingHours[0].closes}, nedjeljom ne radimo.`,
   },
   {
+    question: `Kada u polikliniku dolaze specijalisti iz ${visitingCities}?`,
+    answer: `Uz naš stalni tim, kod nas povremeno primaju i doktori specijalisti iz ${visitingCities}. Raspored njihovih dolazaka se mijenja iz mjeseca u mjesec, pa termine ne objavljujemo unaprijed — pozovite nas na ${contact.phoneInternational} i reći ćemo vam tačan datum sljedećeg dolaska i prvi slobodan termin.`,
+  },
+  {
     question: "Da li je operacija katarakte bolna?",
     answer:
       "Nije. Fakoemulzifikacija se izvodi u lokalnoj anesteziji — oko se obezboli kapima i injekcijom, pa sam zahvat ne boli. Budni ste tokom operacije, ali ne vidite detalje zahvata i ne osjećate bol. Zahvat na jednom oku obično traje oko 15 do 20 minuta.",
@@ -44,7 +50,7 @@ export const faqItems: readonly FaqItem[] = [
   },
   {
     question: "Ima li parkinga i da li je ulaz pristupačan?",
-    answer: `Poliklinika se nalazi u ulici ${contact.street} u ${contact.city}u, u mirnom dijelu grada, sa parkingom u neposrednoj blizini zgrade. Ako dolazite sa slabovidnom ili starijom osobom, dovezite je do samog ulaza — javite nam pri zakazivanju pa ćemo izaći u susret.`,
+    answer: `Poliklinika se nalazi u ulici ${contact.street} u ${site.cityLocative}, u mirnom dijelu grada, sa parkingom u neposrednoj blizini zgrade. Ako dolazite sa slabovidnom ili starijom osobom, dovezite je do samog ulaza — javite nam pri zakazivanju pa ćemo izaći u susret.`,
   },
   {
     question: "Da li mogu doći sa uputnicom ili se pregled plaća?",

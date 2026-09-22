@@ -16,7 +16,7 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/motion/focus-reveal";
-import { placeholder } from "@/lib/placeholders";
+import { photos } from "@/lib/photos";
 import { brandPillars } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -343,8 +343,8 @@ export default function DesignSystemPage() {
           <div>
             <div className="arch relative aspect-[3/4] overflow-hidden bg-surface-sunken">
               <Image
-                src={placeholder.eyeMacro.src}
-                alt={placeholder.eyeMacro.alt}
+                src={photos.okviriDetalj.src}
+                alt={photos.okviriDetalj.alt}
                 fill
                 sizes="(min-width: 768px) 45vw, 100vw"
                 className="object-cover"

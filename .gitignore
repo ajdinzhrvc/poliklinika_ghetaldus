@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# raw client photography — 4-11 MB camera JPEGs. Only the optimized output in
+# /public/slike is committed; regenerate it with scripts/optimize-photos.mjs.
+/assets/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

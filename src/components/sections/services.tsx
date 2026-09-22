@@ -38,6 +38,9 @@ export function Services() {
                     src={pillar.image.src}
                     alt={pillar.image.alt}
                     fill
+                    {...(pillar.image.blur
+                      ? { placeholder: "blur" as const, blurDataURL: pillar.image.blur }
+                      : {})}
                     sizes="(min-width: 1024px) 30vw, (min-width: 640px) 90vw, 100vw"
                     className="object-cover transition-transform duration-700 ease-[var(--ease-optical)] hover:scale-[1.03]"
                   />
